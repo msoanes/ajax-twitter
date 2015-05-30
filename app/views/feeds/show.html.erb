@@ -1,0 +1,28 @@
+<h1>Welcome <%= current_user.username %>!</h1>
+
+<b>Your Feed!</b>
+<div class="infinite-tweets">
+  <ul id="feed"></ul>
+  <a class="fetch-more" href="javascript:void(0)">Load More</a>
+
+  <script type="text/template">
+    <%% tweets.forEach(function (tweet) { %>
+      <li>
+        <%%= tweet.content %>
+        <a href="/users/<%%= tweet.user.id %>"><%%= tweet.user.username %></a>
+        <ul>
+          <%% tweet.mentions.forEach(function (mention) { %>
+            <li>
+              <a href="/users/<%%= mention.user.id %>">
+                <%%= mention.user.username %>
+              </a>
+            </li>
+          <%% }); %>
+        </ul>
+      </li>
+    <%% }); %>
+  </script>
+
+</div>
+
+<%= render "tweets/form" %>
